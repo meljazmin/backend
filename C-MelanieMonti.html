@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clases</title>
+    <script>
+        class Usuario{
+            constructor(nombre, apellido, libros, mascotas){
+                this.nombre = nombre; 
+                this.apellido = apellido; 
+                this.libros = libros; 
+                this.mascotas = mascotas; 
+            }
+            getFullName(){
+               return `${this.nombre} ${this.apellido}`;
+            }
+
+            addMascota (mascota){
+                this.mascotas.push(mascota);
+            }
+
+            getMascotas (){
+                return this.mascotas.length; 
+            }
+
+            addBook(book, autor){
+                this.libros.push({nombre: book, autor: autor});
+            }
+
+            getBooks(){
+                return this.libros.map(function(libro){
+                    return libro.nombre;
+                });
+            }
+        }
+        
+        const usuario = new Usuario("Brian", "Gomez", [{nombre: "Insignia", autor: "Kincaid"}], ["Canela", "Cosmo"]);
+        console.info(usuario.getFullName());
+        console.info(usuario.getBooks());
+        console.info(usuario.getMascotas());
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
