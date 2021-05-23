@@ -36,7 +36,6 @@ class Archivo {
 
 const main = async () => {
     try {
-        // (truquito) copio el template para no copiar el que se va a procesar (soy vaga)
         await fs.promises.copyFile('json/productos.original.json', 'json/productos.json');
 
         // Instancio la clase Archivo
