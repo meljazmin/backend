@@ -8,6 +8,7 @@ class Productos {
     }
 
     obtenerPorId(id){
+        if(typeof id !== 'number') throw new Error("El id no es valido");
         const producto = this.listar().find(producto => {
             return producto.id === id;
         });

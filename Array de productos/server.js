@@ -15,7 +15,7 @@ app.get('/api/productos/listar', (req, res) => {
 });
 
 app.get('/api/productos/listar/:id', (req, res) => {
-    const producto = productos.obtenerPorId(req.params.id);
+    const producto = productos.obtenerPorId(parseInt(req.params.id));
     if (!producto) {
         res.status(404).send({ error: 'producto no encontrado' });
     } else {
