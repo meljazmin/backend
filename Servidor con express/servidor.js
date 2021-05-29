@@ -37,3 +37,7 @@ app.use(function (err, req, res, next) {
 const server = app.listen(puerto, () => {
     console.log(`Servidor inicializado en puerto ${server.address().port}`);
 });
+
+// server.on('Ocurrió un error', error=>  {
+//     console.log('Error en el servidor', error); 
+// });
