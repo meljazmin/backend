@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap');
+nav {
+    background-color: #9c67a9;
+}
+
+h2 {
+    color: #9c67a9;
+    margin-bottom: 30px;
+    font-family: 'Quicksand', sans-serif;
+}
+
+a {
+    color: pink;
+}
+
+.icon {
+    color: #620039;
+    margin-left: 10px;
+}
+
+.titulo-navbar {
+    color: #4f243b;
+    font-size: 25px;
+}
+
+.titulo-navbar:hover {
+    color: #723455;
+}
+
+#navbarNav {
+    font-size: 20px;
+}
+
+.button-color {
+    background-color: #bd819c;
+    border-radius: 20px;
+    border: 2px solid #cccccc;
+    color: #eeeeee;
+    font-size: 18px;
+    padding: 5px;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.button-color:hover {
+    color: black;
+}
+
+label {
+    font-family: 'Quicksand', sans-serif;
+    color: #a658af;
+    font-weight: bolder;
+}
+
+input:focus, textarea:focus {
+    border: 1px solid #bd819c !important;
+    box-shadow: 0 0 3px #e0aaca !important;
+}
+
+input:focus, textarea:focus, select:focus {
+    outline-offset: 0px !important;
+    outline: none !important;
+}
+
+form{
+    background-image: url('/imagenes/fondo-blanco.jpg');
+}

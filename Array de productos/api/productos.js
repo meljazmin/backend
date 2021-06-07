@@ -15,26 +15,26 @@ class Productos {
         return producto;
     }
 
-    agregarProducto(titulo, precio, thumbnail) {
-        if (typeof titulo !== 'string' || titulo.length === 0) {
-            throw Error("El titulo no es correcto");
+    agregarProducto(title, price, thumbnail) {
+        if (typeof title !== 'string' || title.length === 0) {
+            throw Error("El título no es correcto");
         }
-        if (typeof precio !== 'number') {
+        if (typeof price !== 'number') {
             throw Error("El precio no es correcto");
         }
         if (typeof thumbnail !== 'string' || thumbnail.length === 0) {
             throw Error("El thumbnail no es correcto");
         }
         const id = this.productos.length + 1;
-        this.productos.push({ titulo, precio, thumbnail, id });
+        this.productos.push({ title, price, thumbnail, id });
         return this.obtenerPorId(id);
     }
 
-    actualizarProducto(id, { titulo, precio, thumbnail }) {
+    actualizarProducto(id, { title, price, thumbnail }) {
         const producto = this.obtenerPorId(id);
         if (!producto) throw new Error(`No existe el producto con id ${id}`);
-        producto.titulo = titulo || producto.titulo; // producto.titulo ? producto.titulo : titulo;
-        producto.precio = precio || producto.precio;
+        producto.title = title || producto.title; // producto.title ? producto.title : title;
+        producto.price = price || producto.price;
         producto.thumbnail = thumbnail || producto.thumbnail;
 
         return producto;

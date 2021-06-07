@@ -1,7 +1,18 @@
 const express = require('express');
 const productos = require('./api/productos');
+const handlebars = require('express-handlebars');
 
 const app = express();
+
+app.engine('hbs', handlebars({
+    extname: '.hbs',
+    defaultLayout: 'index.hbs',
+    layoutsDir: __dirname + '/views/layouts',
+    partialsDir: __dirname + '/views/partials'
+}));
+app.set('view engine', 'hbs');
+app.set('views', './views');
+
 const apiRouter = express.Router();
 
 apiRouter.use(express.json());
@@ -52,11 +63,12 @@ apiRouter.get('/productos/listar/:id', (req, res) => {
 });
 
 apiRouter.post('/productos/guardar', (req, res) => {
-    let { titulo, precio, thumbnail } = req.body;
-    precio = parseFloat(precio);
+    let { title, price, thumbnail } = req.body;
+    price = parseFloat(price);
     try {
-        const productoCreado = productos.agregarProducto(titulo, precio, thumbnail);
+        const productoCreado = productos.agregarProducto(title, price, thumbnail);
         res.status(201).send(productoCreado);
+        // res.redirect('/');
     } catch (e) {
         res.status(400).send({ error: e.toString() });
     }
@@ -64,7 +76,7 @@ apiRouter.post('/productos/guardar', (req, res) => {
 
 
 apiRouter.put('/productos/actualizar/:id', (req, res) => {
-    // const { titulo, precio, thumbnail } = req.body;
+    // const { title, price, thumbnail } = req.body;
     const id = getIdFromRequestParams(req);
     if (!id) return;
 
@@ -84,6 +96,11 @@ apiRouter.delete('/productos/borrar/:id', (req, res) => {
 });
 
 app.use('/api', apiRouter);
+
+app.get('/productos/view', (req, res) => {
+    const lista = productos.listar();
+    res.render('view', { hayProductos: lista.length > 0, productos: lista });
+});
 
 app.use('/', express.static('public'));
 

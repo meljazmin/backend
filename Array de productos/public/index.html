@@ -4,19 +4,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous" />
+    <link rel="stylesheet" href="style.css">
     <title>Formulario de ingreso de productos</title>
 </head>
 
 <body>
+    <div class="container">
+        <div class="mb-5">
+            <h2 class="text-center">Ingrese su producto</h2>
+        </div>
+        <form action="/api/productos/guardar" method="POST" id="contactoForm" onsubmit="guardar(event)">
+            <fieldset>
+                <div class="form-group">
+                    <label for="nombre">Nombre:</label>
+                    <input class="form-control" type="text" name="title" placeholder="Nombre" />
+                </div>
+                <div class="form-group">
+                    <label for="precio">Precio:</label>
+                    <input class="form-control" type="number" name="price" placeholder="Precio" />
+                </div>
+                <div class="form-group">
+                    <label for="email">Foto URL:</label>
+                    <input class="form-control" type="text" name="thumbnail" placeholder="Foto URL" />
+                </div>
+                <input type="submit" class="button-color" value="Enviar" id="enviar" />
+                <input type="reset" class="button-color" value="Limpiar formulario" />
+            </fieldset>
+        </form>
+    </div>
+    <script>
+        function guardar(event) {
+            event.preventDefault();
+            event.stopPropagation();
 
-    <h2>Ingrese Producto</h2>
-    <form action="/api/productos/guardar" method="POST">
-        Nombre: <input type="text" name="titulo">
-        Precio: <input type="number" name="precio" step="0.1">
-        Foto URL: <input type="text" name="thumbnail">
-        <button type="submit">Enviar</button>
-    </form>
+            const form = event.target;
+            const body = new URLSearchParams(new FormData(form));
 
+            fetch(form.action, {
+                method: 'POST',
+                body: body
+            }).then(res => {
+                if (res.ok) return res.json();
+                throw res;
+            }).then(data => {
+                alert(`Se creo el producto con id ${data.id}`);
+                window.location.reload();
+            }).catch(err => {
+                console.error(err);
+                alert(`Ha ocurrido un error.\n${err}`);
+            });
+        }
+    </script>
 </body>
 
 </html>
