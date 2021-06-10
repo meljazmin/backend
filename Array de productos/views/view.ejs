@@ -11,7 +11,7 @@
   <h1>Vista de Productos</h1>
   <br />
 
-  {{#if hayProductos}}
+  <% if(hayProductos){ %> 
     <div class="table-responsive">
       <table class="table">
         <tr>
@@ -20,19 +20,19 @@
           <th>Foto</th>
           <th></th>
         </tr>
-        {{#each productos}}
+        <% productos.forEach(producto => { %> 
           <tr>
-            <td>{{this.title}}</td>
-            <td>${{this.price}}</td>
-            <td><img width="50" src={{this.thumbnail}} alt="Not found" /></td>
-            <td><button class="btn button-color" onclick="borrarProducto({{this.id}})"><i class="bi bi-trash"></button></i></td>
+            <td><%- producto.title %></td>
+            <td>$<%- producto.price %> </td>
+            <td><img width="50" src="<%- producto.thumbnail %>" alt="Not found" /></td>
+            <td><button class="btn button-color" onclick="borrarProducto(<%- producto.id %>)"><i class="bi bi-trash"></button></i></td>
           </tr>
-        {{/each}}
+        <% }); %> 
       </table>
     </div>
-  {{else}}
+  <% }else{ %> 
     <h3 class="alert alert-warning">No se encontraron productos</h3>
-  {{/if}}
+  <% } %> 
 </div>
 
 <script>
