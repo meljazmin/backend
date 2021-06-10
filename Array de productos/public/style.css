@@ -61,6 +61,31 @@ input:focus, textarea:focus, select:focus {
     outline: none !important;
 }
 
-form{
+form {
     background-image: url('/imagenes/fondo-blanco.jpg');
+}
+
+.table {
+    background-color: #af8a93;
+}
+
+.table th {
+    vertical-align: middle;
+}
+
+h1 {
+    color: #774a82;
+}
+
+hr {
+    background-color: #ddd;
+}
+
+.jumbotron {
+    min-height: 100vh;
+}
+
+.button-color {
+    background-color: #cdb3d4;
+    font-family: 'Quicksand', sans-serif;
 }

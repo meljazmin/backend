@@ -1,0 +1,58 @@
+extends layouts/index.pug
+
+block content
+  div
+    button(class="btn button-color" onclick="history.back()") Atras
+
+  div(class="jumbotron")
+    h1 Vista de Productos
+    br
+
+    if hayProductos
+      div(class="table-responsive")
+        table(class="table")
+          thead
+            tr 
+              th Nombre
+              th Precio
+              th Foto</th>
+              th
+          tbody
+            each producto in productos
+              tr
+                td=producto.title
+                td=producto.price
+                td 
+                  img(width="50" src=producto.thumbnail, alt="Not found")
+                td 
+                  button(class="btn button-color borrar-producto" title="Borrar" data-id=producto.id)
+                    i(class="bi bi-trash")
+    else
+      h3(class="alert alert-warning") No se encontraron productos
+
+
+  script(type='text/javascript').
+    function borrarProducto(id){
+      fetch(`/api/productos/borrar/${id}`, {
+        method: 'DELETE'
+      }).then(res => {
+        if(!res.ok) throw res;
+        return res;
+      }).then(res =>{
+        alert(`Se ha borrado el producto con id ${id}`);
+      }).catch(res => {
+        console.error(err);
+        err.text().then(errorText =>{
+          alert(`Ocurrio un error a borrar el producto con id ${id}:\n${err.status}\n${errorText}`);
+        });
+      }).finally(()=>{
+        window.location.reload();
+      });
+    }
+
+    (()=>{
+      $('.borrar-producto').on('click', (evt)=>{
+        const id = $(evt.currentTarget).data('id');
+        borrarProducto(id);
+      });
+    })();

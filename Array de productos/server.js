@@ -1,17 +1,10 @@
 const express = require('express');
 const productos = require('./api/productos');
-const handlebars = require('express-handlebars');
 
 
 const app = express();
 
-app.engine('hbs', handlebars({
-    extname: '.hbs',
-    defaultLayout: 'index.hbs',
-    layoutsDir: __dirname + '/views/layouts',
-    partialsDir: __dirname + '/views/partials'
-}));
-app.set('view engine', 'hbs');
+app.set('view engine', 'pug');
 app.set('views', './views');
 
 const apiRouter = express.Router();

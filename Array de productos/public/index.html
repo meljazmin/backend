@@ -32,6 +32,7 @@
                 </div>
                 <input type="submit" class="button-color" value="Enviar" id="enviar" />
                 <input type="reset" class="button-color" value="Limpiar formulario" />
+                <button type="button" class="btn button-color" onclick="irAProductos()">Ver productos</button>
             </fieldset>
         </form>
     </div>
@@ -55,7 +56,7 @@
                     showConfirmButton: true,
                     confirmButtonColor: "#bd819c",
                     background: '#e9c3da'
-                }).then((result)=>{
+                }).then((result) => {
                     window.location.reload();
                 });
             }).catch(err => {
@@ -67,6 +68,10 @@
                     background: '#e9c3da'
                 });
             });
+        }
+
+        function irAProductos() {
+            location.href = '/productos/view';
         }
     </script>
 </body>
