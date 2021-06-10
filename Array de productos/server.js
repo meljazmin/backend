@@ -2,6 +2,7 @@ const express = require('express');
 const productos = require('./api/productos');
 const handlebars = require('express-handlebars');
 
+
 const app = express();
 
 app.engine('hbs', handlebars({
