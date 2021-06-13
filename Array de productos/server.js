@@ -1,9 +1,12 @@
 const express = require('express');
 const productos = require('./api/productos');
 const handlebars = require('express-handlebars');
-
+const socketio = require('socket.io');
+const http = require('http');
 
 const app = express();
+const httpServer = http.createServer(app);
+const io = socketio(httpServer, {});
 
 app.engine('hbs', handlebars({
     extname: '.hbs',
@@ -69,7 +72,6 @@ apiRouter.post('/productos/guardar', (req, res) => {
     try {
         const productoCreado = productos.agregarProducto(title, price, thumbnail);
         res.status(201).send(productoCreado);
-        // res.redirect('/');
     } catch (e) {
         res.status(400).send({ error: e.toString() });
     }
@@ -105,10 +107,20 @@ app.get('/productos/view', (req, res) => {
 
 app.use('/', express.static('public'));
 
+io.on('connection', (socket) => {
+    console.info('New connection');
+    const lista = productos.listar();
+    socket.emit('productos', lista);
+});
+
 // Puerto donde escucha el servidor 
 const puerto = 8080;
 
-const server = app.listen(puerto, () => {
+// const server = app.listen(puerto, () => {
+//     console.log(`servidor escuchando en http://localhost:${puerto}`);
+// });
+
+const server = httpServer.listen(puerto, () => {
     console.log(`servidor escuchando en http://localhost:${puerto}`);
 });
 

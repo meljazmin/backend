@@ -8,6 +8,9 @@
         integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous" />
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10" defer></script>
+    <script src="https://s3.amazonaws.com/builds.handlebarsjs.com/handlebars-v4.7.7.js" defer></script>
+    <script src="https://cdn.socket.io/4.1.2/socket.io.min.js" integrity="sha384-toS6mmwu70G0fw54EGlWWeA4z3dyJ+dlXBtSURSKN4vyRFOcxd3Bzjj/AoOwY+Rg" crossorigin="anonymous" defer></script>
+    <script src="index.js" defer></script>
     <title>Formulario de ingreso de productos</title>
 </head>
 
@@ -35,40 +38,9 @@
             </fieldset>
         </form>
     </div>
-    <script>
-        function guardar(event) {
-            event.preventDefault();
-            event.stopPropagation();
+    <div id="listaProductos" class="container">
 
-            const form = event.target;
-            const body = new URLSearchParams(new FormData(form));
-
-            fetch(form.action, {
-                method: 'POST',
-                body: body
-            }).then(res => {
-                if (res.ok) return res.json();
-                throw res;
-            }).then(data => {
-                Swal.fire({
-                    title: `Se creo el producto con id ${data.id}`,
-                    showConfirmButton: true,
-                    confirmButtonColor: "#bd819c",
-                    background: '#e9c3da'
-                }).then((result)=>{
-                    window.location.reload();
-                });
-            }).catch(err => {
-                console.error(err);
-                Swal.fire({
-                    title: `Ha ocurrido un error.\n${err}`,
-                    showConfirmButton: true,
-                    confirmButtonColor: "#bd819c",
-                    background: '#e9c3da'
-                });
-            });
-        }
-    </script>
+    </div>
 </body>
 
 </html>
