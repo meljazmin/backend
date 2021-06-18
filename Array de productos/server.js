@@ -113,6 +113,32 @@ io.on('connection', (socket) => {
     socket.emit('productos', lista);
 });
 
+
+//Chat de mensajes
+const messages = [
+    {
+        email: 'pfernandez@hotmail.com', fecha: new Date(), texto: 'Bienvenidos!'
+    },
+    {
+        email: 'camarasfotograficas@gmail.com', fecha: new Date(), texto: 'Guau, guau!'
+    }
+]
+
+// cuando se conecta el cliente, emite los mensajes 
+io.on('connection', function (socket) {
+    console.log('Un cliente se ha conectado');
+    socket.emit('messages', messages);
+
+    socket.on('new-message', function (message) {
+        message.fecha = new Date();
+        messages.push(message);
+        io.sockets.emit('messages', messages);
+    });
+});
+
+
+
+
 // Puerto donde escucha el servidor 
 const puerto = 8080;
 

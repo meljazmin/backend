@@ -61,7 +61,7 @@ input:focus, textarea:focus, select:focus {
     outline: none !important;
 }
 
-form {
+.formProductos {
     background-image: url('/imagenes/fondo-blanco.jpg');
 }
 

@@ -9,13 +9,16 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10" defer></script>
     <script src="https://s3.amazonaws.com/builds.handlebarsjs.com/handlebars-v4.7.7.js" defer></script>
-    <script src="https://cdn.socket.io/4.1.2/socket.io.min.js" integrity="sha384-toS6mmwu70G0fw54EGlWWeA4z3dyJ+dlXBtSURSKN4vyRFOcxd3Bzjj/AoOwY+Rg" crossorigin="anonymous" defer></script>
+    <script src="https://cdn.socket.io/4.1.2/socket.io.min.js"
+        integrity="sha384-toS6mmwu70G0fw54EGlWWeA4z3dyJ+dlXBtSURSKN4vyRFOcxd3Bzjj/AoOwY+Rg" crossorigin="anonymous"
+        defer></script>
+    <script src="/socket.io/socket.io.js" defer></script>
     <script src="index.js" defer></script>
     <title>Formulario de ingreso de productos</title>
 </head>
 
 <body>
-    <div class="container">
+    <div class="container formProductos">
         <div class="mb-5">
             <h2 class="text-center">Ingrese su producto</h2>
         </div>
@@ -40,6 +43,17 @@
     </div>
     <div id="listaProductos" class="container">
 
+    </div>
+    <div class="container">
+        <h1>Centro de mensajes</h1>
+        <div id="mensajes" class="container"></div>
+
+        <!--Evento submit-->
+        <form class="form-inline" onsubmit="return addMessage(event)" autocomplete="off">
+            <input type="email" id="email" placeholder="Ingresa tu e-mail" class="form-control my-2 mr-2" required>
+            <input type="text" id="text" placeholder="Ingresa un mensaje..." class="form-control my-2 mr-2" minlength="5" required>
+            <input class="button-color" type="submit" value="Enviar">
+        </form>
     </div>
 </body>
 

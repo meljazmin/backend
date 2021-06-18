@@ -1,4 +1,4 @@
-var socket = io({ autoConnect: false });
+const socket = io({ autoConnect: false });
 
 socket.on('productos', async (productos) => {
     try {
@@ -66,3 +66,41 @@ function guardar(event) {
 window.addEventListener('load', () => {
     socket.connect();
 });
+
+
+
+
+socket.on('messages', data => {
+    console.log(data);
+    render(data);
+});
+
+function render(data) {
+    let html = data.map(function (elem, index) {
+        const date = new Date(elem.fecha);
+        const dateString = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+        return (
+            `
+            <div>
+            <b style="color:blue;">[${elem.email}]</b>
+            <label style="color:brown;">${dateString}:</label>
+            <i style="color:green;">${elem.texto}</i>
+            </div>
+            `
+        )
+    }).join(" ");
+
+    document.getElementById('mensajes').innerHTML = html;
+    return;
+}
+
+function addMessage(e) {
+    let mensaje = {
+        email: document.getElementById('email').value,
+        texto: document.getElementById('text').value
+    };
+
+    socket.emit('new-message', mensaje);
+    document.getElementById('text').value = '';
+    return false;
+}
