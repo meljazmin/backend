@@ -3,10 +3,14 @@ const productos = require('./api/productos');
 const handlebars = require('express-handlebars');
 const socketio = require('socket.io');
 const http = require('http');
+const fs = require('fs');
+const os = require('os');
+const path = require('path');
 
 const app = express();
 const httpServer = http.createServer(app);
 const io = socketio(httpServer, {});
+const messageFile = path.join(os.tmpdir(), 'messages.json');
 
 app.engine('hbs', handlebars({
     extname: '.hbs',
@@ -133,6 +137,9 @@ io.on('connection', function (socket) {
         message.fecha = new Date();
         messages.push(message);
         io.sockets.emit('messages', messages);
+        fs.promises.writeFile(messageFile, JSON.stringify(messages)).then(()=>{
+            console.debug(`Mensajes guardados en ${messageFile}`);
+        });
     });
 });
 
