@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous" />
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10" defer></script>
+    <script src="https://s3.amazonaws.com/builds.handlebarsjs.com/handlebars-v4.7.7.js" defer></script>
+    <script src="https://cdn.socket.io/4.1.2/socket.io.min.js"
+        integrity="sha384-toS6mmwu70G0fw54EGlWWeA4z3dyJ+dlXBtSURSKN4vyRFOcxd3Bzjj/AoOwY+Rg" crossorigin="anonymous"
+        defer></script>
+    <script src="/socket.io/socket.io.js" defer></script>
+    <script src="index.js" defer></script>
+    <title>Formulario de ingreso de productos</title>
+</head>
+
+<body>
+    <div class="container formProductos">
+        <div class="mb-5">
+            <h2 class="text-center">Ingrese su producto</h2>
+        </div>
+        <form action="/api/productos/guardar" method="POST" id="contactoForm" onsubmit="guardar(event)">
+            <fieldset>
+                <div class="form-group">
+                    <label for="nombre">Nombre:</label>
+                    <input class="form-control" type="text" name="title" placeholder="Nombre" />
+                </div>
+                <div class="form-group">
+                    <label for="precio">Precio:</label>
+                    <input class="form-control" type="number" name="price" placeholder="Precio" />
+                </div>
+                <div class="form-group">
+                    <label for="email">Foto URL:</label>
+                    <input class="form-control" type="text" name="thumbnail" placeholder="Foto URL" />
+                </div>
+                <input type="submit" class="button-color" value="Enviar" id="enviar" />
+                <input type="reset" class="button-color" value="Limpiar formulario" />
+            </fieldset>
+        </form>
+    </div>
+    <div id="listaProductos" class="container">
+
+    </div>
+    <div class="container">
+        <h1>Centro de mensajes</h1>
+        <div id="mensajes" class="container"></div>
+
+        <!--Evento submit-->
+        <form class="form-inline" onsubmit="return addMessage(event)" autocomplete="off">
+            <input type="email" id="email" placeholder="Ingresa tu e-mail" class="form-control my-2 mr-2" required>
+            <input type="text" id="text" placeholder="Ingresa un mensaje..." class="form-control my-2 mr-2" minlength="5" required>
+            <input class="button-color" type="submit" value="Enviar">
+        </form>
+    </div>
+</body>
+
+</html>
