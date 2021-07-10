@@ -2,7 +2,7 @@ const { productosBBDD } = require('../database/knex');
 
 class Producto {
     async create(producto) {
-        productosBBDD('productos').insert(producto);
+        await productosBBDD('productos').insert(producto);
     }
     async read(id) {
         if (!id) {

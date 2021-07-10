@@ -146,6 +146,18 @@ io.on('connection', function (socket) {
 
 
 
+apiRouter.get('/carrito/listar', (req, res) => {
+    const productosLista = productos.listar();
+    if (productosLista.length === 0) {
+        res.status(404).send({ error: 'no hay productos cargados' });
+    } else {
+        res.send(productosLista);
+    }
+});
+
+
+
+
 // Puerto donde escucha el servidor 
 const puerto = 8080;
 

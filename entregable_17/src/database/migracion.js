@@ -32,4 +32,4 @@ migrate().then(() => {
 }).finally(() => {
     console.log('cerrando conexion...');
     process.exit(0);
-});;
+});
