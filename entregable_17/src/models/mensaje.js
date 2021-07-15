@@ -1,26 +1,11 @@
-const knex = require('../database/knex');
+import mongoose from 'mongoose';
 
-class Mensaje {
+const collection = 'mensajes';
 
-    constructor() { }
+const MensajeSchema = new mongoose.Schema({
+    mensaje: { type: String, require: true },
+    email: { type: String, require: true },
+    fecha: { type: Date, require: true }
+});
 
-    async guardar(mensaje) {
-        try {
-            let resultado = await knex('mensajes').insert(mensaje);
-            return resultado;
-        } catch (error) {
-            throw error;
-        }
-    }
-
-    async buscar(condicion) {
-        try {
-            let mensajes = await knex('mensajes').where(condicion);
-            return mensajes;
-        } catch (error) {
-            throw error;
-        }
-    }
-}
-
-module.exports = new Mensaje();
+export const mensajes = mongoose.model(collection, MensajeSchema);
