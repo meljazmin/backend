@@ -1,22 +1,11 @@
-const { productosBBDD } = require('../database/knex');
+const mongoose = require('mongoose');
 
-class Producto {
-    async create(producto) {
-        await productosBBDD('productos').insert(producto);
-    }
-    async read(id) {
-        if (!id) {
-            return await productosBBDD('productos');
-        } else {
-            return await productosBBDD('productos').where({ id })
-        }
-    }
-    async update(id, producto) {
-        await productosBBDD('productos').where({id}).update(producto);
-    }
-    async delete(id) {
-        await productosBBDD('productos').where({id}).delete();
-    }
-}
+const collection = 'productos';
 
-module.exports = new Producto();
+const ProductosSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    price: { type: Number, required: true },
+    thumbnail: { type: Date }
+});
+
+module.exports = mongoose.model(collection, ProductosSchema);

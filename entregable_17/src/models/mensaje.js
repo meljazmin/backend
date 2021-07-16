@@ -1,11 +1,11 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const collection = 'mensajes';
 
 const MensajeSchema = new mongoose.Schema({
-    mensaje: { type: String, require: true },
-    email: { type: String, require: true },
-    fecha: { type: Date, require: true }
+    mensaje: { type: String, required: true },
+    email: { type: String, required: true },
+    fecha: { type: Date, required: true }
 });
 
-export const mensajes = mongoose.model(collection, MensajeSchema);
+module.exports = mongoose.model(collection, MensajeSchema);

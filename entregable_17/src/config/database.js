@@ -1,20 +1,7 @@
-const mysql = {
-    client: 'mysql',
-    connection: {
-        host: '127.0.0.1',
-        user: 'root',
-        password: '',
-        database: 'mydb'
-    },
-    pool: { min: 0, max: 7 }
+module.exports = {
+    url: 'mongodb://172.27.31.170:27017/ecommerce',
+    options: {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    }
 }
-
-const sqlite3 = {
-    client: 'sqlite3',
-    connection: {
-        filename: __dirname + '/../db/mydb.sqlite'
-    },
-    useNullAsDefault: true
-}
-
-module.exports = { mysql, sqlite3 }

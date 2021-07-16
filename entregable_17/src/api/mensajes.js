@@ -1,4 +1,4 @@
-import model from "../models/mensaje";
+const Mensaje = require("../models/mensaje");
 
 class MensajeController {
 
@@ -6,8 +6,8 @@ class MensajeController {
 
     async guardar(mensaje) {
         try {
-            model.mensaje
-            return await null;
+            const mensajeModel = new Mensaje(mensaje);
+            await mensajeModel.save();
         } catch (error) {
             throw error;
         }
@@ -15,7 +15,7 @@ class MensajeController {
 
     async buscar(condicion) {
         try {
-            return await Mensaje.buscar(condicion);
+            return await Mensaje.find(condicion);
         } catch (error) {
             throw error;
         }
