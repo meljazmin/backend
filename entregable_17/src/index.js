@@ -4,8 +4,6 @@ const config = require('./config');
 const app = express();
 const mongoose = require('mongoose');
 
-mongoose.connect(config.database.url, config.database.options);
-
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -41,15 +39,26 @@ app.use((err, req, res, next) => {
     }
 });
 
-/* obtengo el puerto del enviroment o de la configuracion de la app */
-const puerto = process.env.PORT || config.app.PUERTO;
-
-// pongo a escuchar el servidor en el puerto indicado
-const server = app.listen(puerto, () => {
-    console.log(`servidor escuchando en http://localhost:${puerto}`);
+mongoose.connection.on('error', err => {
+    console.error("err", err)
+});
+mongoose.connection.on('connected', (err, res) => {
+    console.info("mongoose is connected")
 });
 
-// en caso de error, avisar
-server.on('error', error => {
-    console.log('error en el servidor:', error);
+mongoose.connect(config.database.url, config.database.options).then(() => {
+    /* obtengo el puerto del enviroment o de la configuracion de la app */
+    const puerto = process.env.PORT || config.app.PUERTO;
+
+    // pongo a escuchar el servidor en el puerto indicado
+    const server = app.listen(puerto, () => {
+        console.log(`servidor escuchando en http://localhost:${puerto}`);
+    });
+
+    // en caso de error, avisar
+    server.on('error', error => {
+        console.log('error en el servidor:', error);
+    });
+}).catch((err) => {
+    console.error(err);
 });
